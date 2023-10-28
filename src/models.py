@@ -49,18 +49,6 @@ class Vehicles(Base):
     manufacturer = Column(String(250))
     price = Column(Float)
 
-class Favorites(Base):
-    __tablename__ = 'favorites'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship(User)
-    character_id = Column(Integer, ForeignKey('character.id'))
-    character = relationship(Characters)
-    planet_id = Column(Integer, ForeignKey('planet.id'))
-    planet = relationship(Planets)
-    vehicle_id = Column(Integer, ForeignKey('vehicle.id'))
-    vehicle = relationship(Vehicles)
-
 class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
@@ -70,6 +58,8 @@ class Post(Base):
     user = relationship(User)
     created_at = Column(DateTime)
     modified_at = Column(DateTime)
+    def to_dict(self):
+        return {}
 
 class Comment(Base):
     __tablename__ = 'comment'
@@ -80,6 +70,24 @@ class Comment(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
     created_at = Column(DateTime)
+    def to_dict(self):
+        return {}
+
+class Favorites(Base):
+    __tablename__ = 'favorites'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+    character_id = Column(Integer, ForeignKey('characters.id'))
+    characters = relationship(Characters)
+    planet_id = Column(Integer, ForeignKey('planets.id'))
+    planets = relationship(Planets)
+    vehicle_id = Column(Integer, ForeignKey('vehicles.id'))
+    vehicles = relationship(Vehicles)
+    def to_dict(self):
+        return {}
+
+
 
 
 # class Address(Base):
